@@ -24,4 +24,15 @@ A = np.array(A) #Coeficientes de las variables en las resticciones
 b = np.array(b) #Terminos independientes de las restricciones
 column = np.zeros(4)
 column[1] = 1
-print(column)
+notbasic = [1,4,5]
+An = A[0:,notbasic[0]]
+for x in notbasic[1:]:
+    An = np.c_[An, A[0:, x]]
+print(A)
+print(An)
+An[0,0] = 9999
+print()
+print(A)
+print(An)
+cI = np.array([0 for x in range(5)])
+cI = np.c_[cI, np.array([1 for x in range(5)])]
