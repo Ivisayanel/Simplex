@@ -28,11 +28,24 @@ notbasic = [1,4,5]
 An = A[0:,notbasic[0]]
 for x in notbasic[1:]:
     An = np.c_[An, A[0:, x]]
-print(A)
-print(An)
-An[0,0] = 9999
-print()
-print(A)
-print(An)
-cI = np.array([0 for x in range(5)])
-cI = np.c_[cI, np.array([1 for x in range(5)])]
+cn = []
+for x in notbasic:
+     cn += [c[x]]
+cn = np.array(cn)
+
+Binv = np.eye(3)
+cn = np.array([0,0])
+cb = np.array([-1, -2])
+Binv = np.array([[1, -1], [-1, 2]])
+An = np.array([[1,0], [0,1]])
+
+r = cn - cb @ Binv @ An
+print(r)
+# print(A)
+# print(An)
+# An[0,0] = 9999
+# print()
+# print(A)
+# print(An)
+# cI = np.array([0 for x in range(5)])
+# cI = np.c_[cI, np.array([1 for x in range(5)])]

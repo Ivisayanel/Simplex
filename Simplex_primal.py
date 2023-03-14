@@ -45,11 +45,20 @@ class SimplexP:
         return z
     #TODO
     def __second_phase(self, A, c, B, Binv, basic, notbasic, b, n, iter = 0):
-        #Se debe actualizarbien B y Binv para que funcione.
-        ######## primera etapa
+        #Se debe actualizar bien B y Binv para que funcione.
+        ######## Primera etapa
         xN = np.array([0 for x in range(len(notbasic))])
         xb = np.matmul(Binv, b)
-        An = A[0:,notbasic[0]]
-        for x in notbasic[1:]:
-            An = np.c_[An, A[0:, x]]
-        # Falta calcular la cn y cb y la z
+        An = A[[notbasic]]
+        cb = c[[basic]]
+        cn = c[[notbasic]]
+        z = np.matmul(cb, xb)
+        ######## Fin primera etapa
+        ######## Segunda etapa
+        r = cn - cb @ Binv @ An
+        lst = []
+        i = 0
+        for x in r:
+            lst += [(x, notbasic[i])]
+            i += 1
+        q = min(lst)[1]
