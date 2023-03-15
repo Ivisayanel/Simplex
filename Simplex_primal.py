@@ -47,6 +47,7 @@ class SimplexP:
     def __second_phase(self, A, c, B, Binv, basic, notbasic, b, n, iter = 0):
         #Se debe actualizar bien B y Binv para que funcione.
         ######## Primera etapa
+        notbasic.sort()
         xN = np.array([0 for x in range(len(notbasic))])
         xb = np.matmul(Binv, b)
         An = A[[notbasic]]
@@ -55,10 +56,24 @@ class SimplexP:
         z = np.matmul(cb, xb)
         ######## Fin primera etapa
         ######## Segunda etapa
+        print("Iter:", iter)
         r = cn - cb @ Binv @ An
-        lst = []
         i = 0
-        for x in r:
-            lst += [(x, notbasic[i])]
+        while r[i] > 0 and i < len(r):
             i += 1
-        q = min(lst)[1]
+        if r[i] >= 0:
+            print("Solución óptima")
+            return (z)
+        q = notbasic[i]
+        ######## Tercera etapa
+        db = -Binv @ A[0:,q]
+        acotado = False
+        for x in db:
+            if x < 0:
+                acotado = True
+                break
+        if not acotado:
+            print("No acotado")
+            return (None)
+        ######## Cuarta etapa
+        

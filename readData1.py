@@ -40,9 +40,10 @@ Binv = np.array([[1, -1], [-1, 2]])
 An = np.array([[1,0], [0,1]])
 
 r = cn - cb @ Binv @ An
-print(r)
-# print(A)
-# print(An)
+#print(r)
+print(A)
+print()
+print(A[0:,3])
 # An[0,0] = 9999
 # print()
 # print(A)
